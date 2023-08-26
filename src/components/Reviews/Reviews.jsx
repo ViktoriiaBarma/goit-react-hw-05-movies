@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getMovieReviews } from 'servises/api'
+import { getMoviesReviews } from 'services/api'
 import {ReviewsList,ReviewItem, ReviewsAuthor, ReviewContent} from './Reviews.styled'
-
+import { Loader } from "components/Loader/Loader";
 
 const Reviews = () => {
   const { movieId } = useParams()
   const [reviews, setReviews] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
-    try {
-      const response = await getMovieReviews(`${movieId}`)
+      try {
+      setIsLoading(true);
+        setError(false);
+      const response = await getMoviesReviews(`${movieId}`)
       setReviews(response);
     } catch (error) {
-      console.error('Ошибка при загрузке данных:', error);
+      setError(error);
+      } finally {
+        setIsLoading(false);
     }
   };
     fetchData();
@@ -22,6 +29,8 @@ const Reviews = () => {
 
   return (
     <>
+             {isLoading && <Loader />}
+
       <ReviewsList>
           { reviews.length === 0 ? <div style={{ padding: '26px', textAlign: 'center' }}>
          <p>У нас немає рецензій на цей фільм</p>

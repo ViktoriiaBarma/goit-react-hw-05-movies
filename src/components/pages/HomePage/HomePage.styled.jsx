@@ -10,7 +10,7 @@ text - align: center;
 
 
 
-export const MainTitle = styled.h1`
+export const Title = styled.h1`
 margin-bottom: 16px;
         color: rgb(0, 0, 0);
         text-shadow: rgb(255, 255, 255) 0px 0.4px 0.4px, rgb(75, 20, 20) 0px 0.5px 0.5px;

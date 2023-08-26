@@ -1,55 +1,6 @@
 import styled from 'styled-components';
-
-export const MoviesBlock = styled.div`
-  display: inline-block;
-  width: 100%;
-  min-height: 34px;
-  border-radius: 0.1rem;
-  font-style: inherit;
-  font-variant: inherit;
-  font-weight: inherit;
-  font-stretch: inherit;
-  line-height: inherit;
-  font-family: inherit;
-  font-optical-sizing: inherit;
-  font-kerning: inherit;
-  font-feature-settings: inherit;
-  font-variation-settings: inherit;
-  font-size: 1.2rem;
-  border: none;
-  outline: none;
-  padding-left: 32px;
-  padding-right: 8px;
-  background: none;
-  color: rgb(255, 66, 8);
-  letter-spacing: 1.4px;
-  &:active {
-    outline: none;
-  }
-`;
-
-export const Btn = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border: 0px;
-  border-radius: 50%;
-  background: linear-gradient(
-    141.22deg,
-    rgb(255, 194, 38) 9.4%,
-    rgb(248, 65, 25) 91.91%
-  );
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
-  cursor: pointer;
-  outline: none;
-
-  &:hover,
-  &:focus {
-    transform: scale(0.8);
-  }
-`;
+import DebounceInput from 'react-debounce-input';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
 
 
 export const List = styled.ul`
@@ -95,4 +46,109 @@ export const Link = styled.a`
   color: #abc2ff;
 }
 `
+
+export const SearchForm = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 30px;
+
+  width: 100%;
+
+  max-width: 20.4rem;
+  height: 2.2rem;
+
+  backdrop-filter: blur(2px);
+  color: #fff;
+  outline: 0;
+  border: 0;
+  border-radius: 30px;
+
+  box-shadow: 1px 1px 1px #f84119, 1px 1px 1px #fff;
+
+  overflow: hidden;
+`;
+
+export const Icon = styled(HiMagnifyingGlass)`
+  position: absolute;
+  right: -5px;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+
+  fill:rgba(255, 66, 8, 1);
+  stroke: #fff;
+  stroke-width: 1px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  :hover {
+    transform: scale(1.2);
+  }
+`;
+
+export const SearchFormBtn = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+
+  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+
+  :hover {
+    opacity: 1;
+  }
+
+  svg {
+    fill: rgba(255, 66, 8, 1);
+    stroke: #fff;
+    stroke-width: 1px;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    :hover {
+      transform: scale(1.2);
+    }
+  }
+`;
+
+export const SearchFormInput = styled(DebounceInput)`
+  display: inline-block;
+  width: 100%;
+  min-height: 34px;
+
+  border-radius: 0.1rem;
+
+  font: inherit;
+
+  font-size: 1.2rem;
+
+  border: none;
+  outline: none;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  background: none;
+
+  color: rgba(255, 66, 8, 1);
+  letter-spacing: 1.4px;
+
+  :focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    text-align: center;
+    color: #fd5523;
+    font-size: 20px;
+    letter-spacing: 1.3px;
+  }
+`;
 

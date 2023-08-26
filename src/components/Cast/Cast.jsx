@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieCast } from 'servises/api';
+import { getMoviesCast } from 'services/api';
 import {
   ActorsCharacter,
   ActorsName,
@@ -11,25 +11,38 @@ import {
   MovieHero,
   Wrap,
 } from './Cast.styled';
+import { Loader } from 'components/Loader/Loader';
 import Avatar from 'assets/avatar.jpg';
 
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getMovieCast(`${movieId}`);
+        setIsLoading(true);
+        setError(false);
+        const response = await getMoviesCast(`${movieId}`);
         setCast(response);
       } catch (error) {
-        console.error('Ошибка при загрузке данных:', error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
   }, [movieId]);
+
+
+
+
   return (
     <>
+       {isLoading && <Loader />}
       <CastList>
         {cast.length === 0 ? (
           <p>Інформація про акторський склад не знайдена</p>
@@ -53,7 +66,7 @@ const Cast = () => {
                   <ActorsName>{name}</ActorsName>
                   {character && (
                     <ActorsCharacter>
-                      Персонаж
+                      Персонаж:
                       <MovieHero>{character}</MovieHero>
                     </ActorsCharacter>
                   )}

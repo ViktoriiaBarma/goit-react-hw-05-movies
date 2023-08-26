@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { getTrandingMovies } from 'services/api';
-import { HomeBlock, MainTitle } from './HomePage.styled';
-import { MovieGallery } from 'MovieGallery/MovieGallery';
+import { HomeBlock, Title } from './HomePage.styled';
+import { MovieGallery } from 'components/MovieGallery/MovieGallery';
 import { Loader } from 'components/Loader/Loader';
 import Pagination from 'components/Pagination/Pagination';
 
-const HomePage = () => {
+  const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,18 +35,20 @@ const HomePage = () => {
       }
     })();
   }, [page, location.search]);
+    
+    
+    
   return (
     <HomeBlock>
       {isLoading && <Loader />}
-      <MainTitle>ГОЛОВНІ ТРЕНДИ</MainTitle>
-
-      <MovieGallery movies={movies} />
-      <Pagination
-        pageCount={totalPages}
-        setSearchParams={setSearchParams}
-        params={params}
-        currentPage={page - 1}
-      />
+     <Title >ГОЛОВНІ ТРЕНДИ</Title>
+          <MovieGallery movies={movies} />
+          <Pagination
+            pageCount={totalPages}
+            setSearchParams={setSearchParams}
+            params={params}
+            currentPage={page - 1}
+          />
     </HomeBlock>
   );
 };

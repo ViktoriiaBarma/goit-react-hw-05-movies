@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import { Link, Nav, NavBlock } from './Header.styled';
+import { Link, NavBlock } from './Header.styled';
 import { Suspense } from 'react';
-const Layout = () => {
+ const Layout = () => {
   return (
     <>
-      <Nav>
+
         <NavBlock>
           <Link
             style={({ isActive }) => ({
@@ -23,7 +23,6 @@ const Layout = () => {
             Movies
           </Link>
         </NavBlock>
-      </Nav>
       <main>
         <Suspense fallback={<div>('loading')</div>}>
           <Outlet />

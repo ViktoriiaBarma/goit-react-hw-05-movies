@@ -1,13 +1,19 @@
 import {Suspense, useEffect, useRef, useState } from "react";
 import { Outlet, useLocation, useParams } from "react-router-dom"
-import { getMoviesDetails } from 'servises/api'
+import { getMoviesDetails } from 'services/api'
 import {WrapperMovie,WrapperPicVote,WrapperDetails,PosterMovie,MainTitle,Rating,Genres,Genre,MovieInfo,MovieInfoTitle,NavLink} from './MovieDetailsPage.styled'
 import NoPoster from 'assets/no-poster.jpg';
-import {LinkToBack} from 'components/LinkToBack/LinkToBack'
+import { LinkToBack } from 'components/LinkToBack/LinkToBack'
+import { Loader } from "components/Loader/Loader";
+
 
 const MovieDetails = () => {
   const {movieId} = useParams()
   const [movieDetails, setmovieDetails] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+  const urlOriginal = 'https://image.tmdb.org/t/p/original'
   const location = useLocation()
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies')
 
@@ -15,57 +21,60 @@ const MovieDetails = () => {
     
   useEffect(() => {
     const fetchData = async () => {
-    try {
+      try {
+      setIsLoading(true);
+        setError(false);
       const response = await getMoviesDetails(`${movieId}`)
       setmovieDetails(response);
     } catch (error) {
-      console.error('Ошибка при загрузке данных:', error);
-    }
+        setError(error);
+    }finally {
+        setIsLoading(false);
+      }
   };
     fetchData();
   },[movieId])
 
-    const { title, release_date, poster_path, genres, overview, vote_average,original_title } = movieDetails 
+    const { title, release_date, poster_path, genres, overview, vote_average } = movieDetails 
       
-    
-   
+ 
 
   return (
     <>
+             {isLoading && <Loader />}
+
       <WrapperMovie>
         <WrapperPicVote>
-          {`https://image.tmdb.org/t/p/original${poster_path}` && (
+          {`${urlOriginal+poster_path}` && (
                 <PosterMovie
                   src={
                     poster_path
-                      ? `https://image.tmdb.org/t/p/original${poster_path}`
+                      ? `${urlOriginal+poster_path}`
                       : NoPoster
                   }
-                  alt={title || original_title}
+                  alt={title}
                   width="500"
                 />
               )}
         </WrapperPicVote>
         <WrapperDetails>
           <MainTitle>
-                {title || original_title}
-                {release_date && <span> ({parseInt(release_date)})</span>}
-              </MainTitle>
-        <Rating>User Score: {Math.round((vote_average * 10))}%</Rating>
+                {title}
+            {release_date && ` (${release_date.slice(0, 4)})`}
+          </MainTitle>
+        <Rating>Рейтинг: {Math.round((vote_average * 10))}%</Rating>
          {overview && (
                 <>
-                  <h2>{'moviesPage.overview'}</h2>
+                  <h2>Огляд фільму</h2>
                   <p>{overview}</p>
                 </>
               )}
 
-         {genres && (
-                <Genres>
-                  {genres.map((genre, index) => (
-                    <Genre key={index}>{genre.name}</Genre>
+                  <Genres> Жанр
+                  {genres && genres.map(({id, name}) => (
+                    <Genre key={id}>{name}</Genre>
                   ))}
-                </Genres>
-              )}
+            </Genres>
         </WrapperDetails>
           </WrapperMovie>
           

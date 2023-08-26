@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { MovieListStyled } from './MovieGallery.styled';
-import { MovieGalleryItem } from 'MovieGalleryItem/MovieGalleryItem';
+import { MovieGalleryItem } from 'components/MovieGalleryItem/MovieGalleryItem';
 
 export const MovieGallery = ({ movies, genres }) => {
   const location = useLocation();
