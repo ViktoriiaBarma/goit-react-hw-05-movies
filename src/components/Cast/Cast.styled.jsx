@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 
 export const CastList = styled.ul`
-  flex-wrap: wrap;
-
-  justify-content: center;
-  gap: 16px;
-  padding-top: 32px;
-  padding-bottom: 32px;
-  text-align: center;
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    text-align: center;
+}
 `;
 
 export const CastItem = styled.li`
@@ -57,6 +58,7 @@ export const Wrap = styled.div`
 
 export const MovieHero = styled.span`
   color: rgb(255, 66, 8);
+  padding-left:5px;
 `;
 
 export const ActorsName = styled.h3`
