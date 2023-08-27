@@ -11,7 +11,7 @@ const MovieDetails = () => {
   const {movieId} = useParams()
   const [movieDetails, setmovieDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
 
   const urlOriginal = 'https://image.tmdb.org/t/p/original'
   const location = useLocation()
@@ -23,11 +23,12 @@ const MovieDetails = () => {
     const fetchData = async () => {
       try {
       setIsLoading(true);
-        setError(false);
+       // setError(false);
       const response = await getMoviesDetails(`${movieId}`)
       setmovieDetails(response);
-    } catch (error) {
-        setError(error);
+      } catch (error) {
+        console.log(error)
+  //      setError(error);
     }finally {
         setIsLoading(false);
       }

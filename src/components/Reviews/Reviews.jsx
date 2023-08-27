@@ -8,17 +8,18 @@ const Reviews = () => {
   const { movieId } = useParams()
   const [reviews, setReviews] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+//  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
       setIsLoading(true);
-        setError(false);
+ //       setError(false);
       const response = await getMoviesReviews(`${movieId}`)
       setReviews(response);
-    } catch (error) {
-      setError(error);
+      } catch (error) {
+        console.log(error)
+  //    setError(error);
       } finally {
         setIsLoading(false);
     }
