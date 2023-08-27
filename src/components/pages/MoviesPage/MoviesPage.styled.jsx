@@ -3,57 +3,13 @@ import DebounceInput from 'react-debounce-input';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 
 
-export const List = styled.ul`
-display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        margin: 0px auto;
-`
-
-export const Item = styled.li`
-position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 8px;
-        max-width: 100%;
-        width: 260px;
-        height: 100%;
-        border: none;
-        transform: scale(1);
-        border-radius: 8px;
-        background-color: transparent;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
-        backdrop-filter: blur(3.5px);
-        transition: box-shadow 250ms linear 0s;
-        cursor: pointer;
-
-        &:hover{
-            box-shadow: rgba(0, 0, 0, 0.74) 0px 2px 24px -5px;
-        }
-`
-
-export const Link = styled.a`
-  text-decoration: none;
-  font-size: 20px;
-  color: #313131;
-  transition: color 300ms ease-in;
-
-
-&:hover {
-  font-weight: 500;
-  color: #abc2ff;
-}
-`
-
 export const SearchForm = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
   margin-top: 30px;
-
+  margin-bottom: 30px;
   width: 100%;
 
   max-width: 20.4rem;
@@ -152,3 +108,48 @@ export const SearchFormInput = styled(DebounceInput)`
   }
 `;
 
+
+
+// export const List = styled.ul`
+// // display: flex;
+// //         flex-wrap: wrap;
+// //         justify-content: center;
+// //         gap: 20px;
+// //         margin: 0px auto;
+// // `
+
+// export const Item = styled.li`
+// position: relative;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 8px;
+//         padding: 8px;
+//         max-width: 100%;
+//         width: 260px;
+//         height: 100%;
+//         border: none;
+//         transform: scale(1);
+//         border-radius: 8px;
+//         background-color: transparent;
+//         box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+//         backdrop-filter: blur(3.5px);
+//         transition: box-shadow 250ms linear 0s;
+//         cursor: pointer;
+
+//         &:hover{
+//             box-shadow: rgba(0, 0, 0, 0.74) 0px 2px 24px -5px;
+//         }
+// `
+
+// export const Link = styled.a`
+//   text-decoration: none;
+//   font-size: 20px;
+//   color: #313131;
+//   transition: color 300ms ease-in;
+
+
+// &:hover {
+//   font-weight: 500;
+//   color: #abc2ff;
+// }
+// `

@@ -8,6 +8,7 @@ export const CastList = styled.ul`
     padding-top: 32px;
     padding-bottom: 32px;
     text-align: center;
+     background-color: rgb(248 170 96 / 39%);;
 }
 `;
 
@@ -29,7 +30,6 @@ export const CastItem = styled.li`
 export const CastPhotoThumb = styled.div`
   position: relative;
   overflow: hidden;
-  margin-bottom: 10px;
 `;
 
 export const CastPhoto = styled.img`
@@ -54,6 +54,7 @@ export const Wrap = styled.div`
   align-items: center;
   flex: 1 0 auto;
   padding: 4px;
+  background-color: #fff;
 `;
 
 export const MovieHero = styled.span`

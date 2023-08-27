@@ -1,67 +1,97 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import {useLocation, useSearchParams } from 'react-router-dom'
 import { getMoviesSearch } from 'services/api'
 import { Icon,
   SearchForm,
   SearchFormBtn,
-  SearchFormInput, List, Item, Link} from './MoviesPage.styled'
+  SearchFormInput} from './MoviesPage.styled'
 import { Loader } from 'components/Loader/Loader'
+import { MovieGallery } from 'components/MovieGallery/MovieGallery';
+import Pagination from 'components/Pagination/Pagination';
+
 const MoviesPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams('query');
-const [searchQuery, setSearchQuery] = useState('');
+ const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const query = searchParams.get('query') ?? '';
-  const [isLoading, setIsLoading] = useState(false);
-  const [array, setArray] = useState([]);
-  const location = useLocation()
+ const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [totalPages, setTotalPages] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams({
+    page: 1,
+    query: '',
+    });
+  
+  const params = useMemo(
+    () => Object.fromEntries([...searchParams]),
+    [searchParams]
+  );
 
-  useEffect(() => {
+  const page = Number(params.page || 1);
+  let { query } = params;
 
-    const fetchData = async () => {
+  const location = useLocation();
+
+
+    useEffect(() => {
+    (async () => {
       try {
-        setIsLoading(true);
-        setError(false);
-        const response = await getMoviesSearch(`?query=${query}`);
-        setArray(response);
+        const data = await getMoviesSearch(page, query);
+        //console.log(data.results);
+        setMovies(data.results);
+        setTotalPages(data.total_results);
       } catch (error) {
         setError(error);
-      }finally {
+      } finally {
         setIsLoading(false);
       }
-    };
-    fetchData();
-  }, [query])
+    })();
+  }, [page, query, location.search]);
 
-  const handleSearch = () => {
-    setSearchParams({ query: searchQuery });
+  useEffect(() => {
+    const filtered = movies?.filter(movie =>
+      movie?.title?.toLowerCase().includes(query?.toLowerCase())
+    );
+    setFilteredMovies(filtered);
+  }, [movies, query]);
 
-  }
+
+
+  const handleSearchChange = e => {
+    const inputValue = e.target.value;
+    query = inputValue;
+    setSearchParams({ page: 1, query: query });
+  };
+
   return (
     <>
-             {isLoading && <Loader />}
+
  <SearchForm>
         <SearchFormInput         
 type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+          value={query}
+           debounceTimeout={500}
+        onChange={handleSearchChange}
         placeholder={`Пошук фільмів`}
       />
-      <SearchFormBtn type="submit" onClick={handleSearch}>
+      <SearchFormBtn type="submit" >
         <Icon size="24" />
       </SearchFormBtn>
-    </SearchForm>
-      
+      </SearchForm>
+        {isLoading && <Loader />}
 
-      <List>
-        {array.map(({ id, title }) =>
-          <Item key={id} >
-          <Link to={`${id}`} state={{ from: location }}>
-            {title}
-          </Link>
-        </Item>)} 
-        </List>
+        {!error && query && !isLoading && (
+          <MovieGallery movies={filteredMovies} />
+        )}
+
+        {movies.length > 0 && !isLoading && page <= totalPages && (
+          <Pagination
+            pageCount={totalPages}
+            setSearchParams={setSearchParams}
+            params={params}
+            currentPage={page - 1}
+          />
+        )}
     </>
-  );
+    );
 };
 
 export default MoviesPage;

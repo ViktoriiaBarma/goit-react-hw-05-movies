@@ -94,7 +94,7 @@ export const MovieInfo = styled.div`
         margin-top: 30px;
         padding: 20px;
         border-bottom: 1px solid black;
-        background: linear-gradient(rgba(2, 0, 36, 0) 0%, rgba(121, 9, 9, 0) 10%, rgb(134, 167, 147) 100%);
+        background: linear-gradient(rgba(2, 0, 36, 0) 0%, rgba(121, 9, 9, 0) 10%, rgb(248, 170, 96) 100%);
         font-size: 20px;
 `;
 
