@@ -10,7 +10,7 @@ import Pagination from 'components/Pagination/Pagination';
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  //const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const location = useLocation();
 
@@ -23,13 +23,14 @@ import Pagination from 'components/Pagination/Pagination';
     (async () => {
       try {
         setIsLoading(true);
-        setError(false);
+       // setError(false);
 
         const data = await getTrandingMovies(page);
         setMovies(data.results);
         setTotalPages(data.total_pages);
       } catch (error) {
-        setError(error);
+        console.log(error)
+        //setError(error);
       } finally {
         setIsLoading(false);
       }
